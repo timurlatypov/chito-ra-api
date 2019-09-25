@@ -18,7 +18,7 @@ class ProductVariationResource extends JsonResource
     {
 
     	if ($this->resource instanceof Collection) {
-    		return ProductVariationResource::collection($this->resource);
+    		return ProductVariationResource::collection($this->resource)->jsonSerialize();
 	    }
 
         return [
@@ -29,7 +29,7 @@ class ProductVariationResource extends JsonResource
 	        'stock_count' => (int) $this->stockCount(),
 	        'type' => $this->type->name,
 	        'in_stock' => $this->inStock(),
-	        'product' => new ProductIndexResource($this->product)
+	        'product' => (new ProductIndexResource($this->product))->jsonSerialize()
         ];
     }
 }

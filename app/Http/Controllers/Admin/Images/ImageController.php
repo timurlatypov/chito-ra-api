@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 class ImageController extends Controller
 {
@@ -22,6 +23,8 @@ class ImageController extends Controller
 	    	$product = Product::where('slug', $request->product)->first();
 
 	    	$product->images()->sync($image->id);
+
+		    ResponseCache::clear();
 
 		    return response()->json([
 			    'data' => [

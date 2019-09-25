@@ -31,4 +31,9 @@ class Category extends Model
 	{
 		return $this->belongsToMany(Image::class,'category_images', 'category_id', 'image_id');
 	}
+
+	public function sketch()
+	{
+		return $this->belongsToMany(Image::class,'category_sketches', 'category_id', 'image_id');
+	}
 }

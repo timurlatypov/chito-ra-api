@@ -22,6 +22,7 @@ class CategoryResource extends JsonResource
 	        'children' => CategoryResource::collection($this->whenLoaded('children')),
 	        'products' => ProductResource::collection($this->products),
 	        'image' => CategoryImageResource::collection($this->image),
+	        'sketch' => CategorySketchResource::collection($this->sketch),
         ];
     }
 }

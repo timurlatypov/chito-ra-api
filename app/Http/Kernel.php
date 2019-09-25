@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
 	    'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
 	    'cart.sync' => \App\Http\Middleware\Cart\Sync::class,
 	    'cart.isnotempty' => \App\Http\Middleware\Cart\ResponseIfEmpty::class,
+	    'cacheResponse' => \Spatie\ResponseCache\Middlewares\CacheResponse::class,
     ];
 
     /**
