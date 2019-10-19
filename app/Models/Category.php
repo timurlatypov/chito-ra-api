@@ -24,7 +24,7 @@ class Category extends Model
 
     public function products()
     {
-    	return $this->belongsToMany(Product::class);
+    	return $this->belongsToMany(Product::class)->withPivot('order')->orderBy('category_product.order', 'asc');
     }
 
 	public function image()

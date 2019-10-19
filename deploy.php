@@ -21,14 +21,14 @@ set('branch', 'master');
 
 host('194.58.120.209')
 	->user('root')
-	->identityFile('~/.ssh/id_rsa_gitlab')
+	->identityFile('~/.ssh/id_rsa_chitora')
 	->set('deploy_path', '/var/www/api/prod')
 	->set('master', 'master')
 	->stage('prod');
 
 host('194.58.120.209')
 	->user('root')
-	->identityFile('~/.ssh/id_rsa_gitlab')
+	->identityFile('~/.ssh/id_rsa_chitora')
 	->set('deploy_path', '/var/www/api/dev')
 	->set('master', 'master')
 	->stage('dev');
