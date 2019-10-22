@@ -4,6 +4,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
 	Route::resource('images', 'Images\ImageController');
 });
 
+Route::group(['prefix' => 'notifications', 'namespace' => 'Mail'], function() {
+	Route::post('review', 'MailController@getReview');
+});
+
 
 
 Route::resource('categories', 'Categories\CategoryController');
