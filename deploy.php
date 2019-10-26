@@ -47,6 +47,7 @@ task('composer:dump:autoload', function () {
 task('reload:php-fpm', function () {
 	run('sudo service php7.3-fpm restart');
 });
+
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
