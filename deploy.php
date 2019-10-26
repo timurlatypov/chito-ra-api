@@ -30,7 +30,7 @@ host('194.58.120.209')
 	->set('branch', 'develop')
 	->stage('dev');
 
-set('default_stage', 'dev');
+set('default_stage', 'production');
 
 
 set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts');
