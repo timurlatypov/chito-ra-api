@@ -16,22 +16,22 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Hosts
-set('default_stage', 'dev');
-set('branch', 'master');
-
 host('194.58.120.209')
 	->user('root')
 	->identityFile('~/.ssh/id_rsa_chitora')
 	->set('deploy_path', '/var/www/api/prod')
-	->set('master', 'master')
-	->stage('prod');
+	->set('branch', 'master')
+	->stage('production');
 
 host('194.58.120.209')
 	->user('root')
 	->identityFile('~/.ssh/id_rsa_chitora')
 	->set('deploy_path', '/var/www/api/dev')
-	->set('master', 'master')
+	->set('branch', 'develop')
 	->stage('dev');
+
+set('default_stage', 'dev');
+
 
 set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts');
 set('keep_releases', 15);
