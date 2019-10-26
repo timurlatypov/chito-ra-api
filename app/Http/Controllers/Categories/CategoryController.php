@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Categories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\DeliveryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -19,7 +20,7 @@ class CategoryController extends Controller
 
 	public function menu(Request $request)
 	{
-		$kitchen = Category::where('slug', 'menu')->with([
+		$menu = Category::where('slug', 'menu')->with([
 			'children',
 			'children.children',
 			'children.children.children'
@@ -27,7 +28,7 @@ class CategoryController extends Controller
 			->ordered()
 			->get();
 
-		return CategoryResource::collection($kitchen);
+		return CategoryResource::collection($menu);
 	}
 
 	public function kitchen(Request $request)
@@ -54,5 +55,18 @@ class CategoryController extends Controller
 			->get();
 
 		return CategoryResource::collection($bar);
+	}
+
+	public function delivery(Request $request)
+	{
+		$delivery = Category::where('slug', 'kitchen')->with([
+			'children',
+			'children.children',
+			'children.children.children'
+		])
+			->ordered()
+			->get();
+
+		return DeliveryResource::collection($delivery);
 	}
 }

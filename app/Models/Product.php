@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Traits\CanBeScoped;
 use App\Traits\HasPrice;
+use App\Traits\isDeliverable;
+use App\Traits\isLive;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-	use CanBeScoped, HasPrice;
+	use CanBeScoped, HasPrice, isDeliverable, isLive;
 
 	protected $fillable = [
 		'name',

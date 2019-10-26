@@ -14,6 +14,7 @@ Route::resource('categories', 'Categories\CategoryController');
 Route::get('menu', 'Categories\CategoryController@menu')->middleware('cacheResponse');
 Route::get('kitchen', 'Categories\CategoryController@kitchen')->middleware('cacheResponse');
 Route::get('bar', 'Categories\CategoryController@bar')->middleware('cacheResponse');
+Route::get('delivery', 'Categories\CategoryController@delivery')->middleware('cacheResponse');
 
 
 Route::resource('products', 'Products\ProductController');
