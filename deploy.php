@@ -16,19 +16,12 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Hosts
-host('194.58.120.209')
+host('176.57.215.122')
 	->user('root')
-	->identityFile('~/.ssh/id_rsa_chitora')
-	->set('deploy_path', '/var/www/api/prod')
+	->identityFile('~/.ssh/id_rsa_chitora_timeweb')
+	->set('deploy_path', '/var/www/api/production')
 	->set('branch', 'master')
 	->stage('production');
-
-host('194.58.120.209')
-	->user('root')
-	->identityFile('~/.ssh/id_rsa_chitora')
-	->set('deploy_path', '/var/www/api/dev')
-	->set('branch', 'develop')
-	->stage('dev');
 
 set('default_stage', 'production');
 
