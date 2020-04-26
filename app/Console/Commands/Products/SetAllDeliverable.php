@@ -22,6 +22,7 @@ class SetAllDeliverable extends Command
     protected $description = 'Set all products to be deliverable';
 
     protected $products;
+
     /**
      * Create a new command instance.
      *
@@ -40,9 +41,9 @@ class SetAllDeliverable extends Command
      */
     public function handle()
     {
-        foreach($this->products as $product) {
-        	$product->deliverable = true;
-        	$product->save();
+        foreach ($this->products as $product) {
+            $product->deliverable = true;
+            $product->save();
 
         }
     }

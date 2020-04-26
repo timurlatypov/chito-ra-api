@@ -12,12 +12,12 @@ class MailController extends Controller
 {
     public function getReview(Request $request)
     {
-	    Mail::to(['timur.latypov@gmail.com'])
-		    ->bcc('timur.e61@gmail.com')
-		    ->send(new ReviewNotification($request));
+        Mail::to(config('notify_emails.primary'))
+            ->bcc(config('notify_emails.secondary'))
+            ->send(new ReviewNotification($request));
 
-	    return response()->json([
-	    	'status' => Response::HTTP_OK
-	    ], 200);
+        return response()->json([
+            'status' => Response::HTTP_OK,
+        ], 200);
     }
 }

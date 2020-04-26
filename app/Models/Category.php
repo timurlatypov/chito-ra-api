@@ -8,32 +8,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-	use HasChildren, IsOrderable;
+    use HasChildren, IsOrderable;
 
     protected $fillable = [
-    	'name',
-	    'slug',
-	    'parent_id',
-	    'order'
+        'name',
+        'slug',
+        'deliverable',
+        'parent_id',
+        'order',
     ];
 
     public function children()
     {
-    	return $this->hasMany(Category::class,'parent_id', 'id');
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+
+    public function delivery()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id')
+            ->where('deliverable', true);
     }
 
     public function products()
     {
-    	return $this->belongsToMany(Product::class)->withPivot('order')->orderBy('category_product.order', 'asc');
+        return $this->belongsToMany(Product::class)
+            ->withPivot('order')
+            ->orderBy('category_product.order', 'asc');
     }
 
-	public function image()
-	{
-		return $this->belongsToMany(Image::class,'category_images', 'category_id', 'image_id');
-	}
+    public function image()
+    {
+        return $this->belongsToMany(Image::class, 'category_images', 'category_id', 'image_id');
+    }
 
-	public function sketch()
-	{
-		return $this->belongsToMany(Image::class,'category_sketches', 'category_id', 'image_id');
-	}
+    public function sketch()
+    {
+        return $this->belongsToMany(Image::class, 'category_sketches', 'category_id', 'image_id');
+    }
 }
