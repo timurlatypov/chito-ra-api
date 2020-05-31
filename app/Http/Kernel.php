@@ -20,7 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
 	    \App\Http\Middleware\ProfileJsonResponse::class,
-	    \Barryvdh\Cors\HandleCors::class,
+        \Fruitcake\Cors\HandleCors::class,
     ];
 
     /**
@@ -62,7 +62,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-
+        'social'           => \App\Http\Middleware\SocialProviders::class,
 	    'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
 	    'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
 	    'cart.sync' => \App\Http\Middleware\Cart\Sync::class,

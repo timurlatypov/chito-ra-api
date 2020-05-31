@@ -24,8 +24,8 @@ class ProductIndexResource extends JsonResource
         	'spicy' => (bool) $this->spicy,
         	'top' => (bool) $this->top,
 	        'price' => $this->formattedPrice,
-//	        'stock_count' => $this->stockCount(),
 	        'in_stock' => $this->inStock(),
+            'images' => $this->images,
         ];
     }
 }

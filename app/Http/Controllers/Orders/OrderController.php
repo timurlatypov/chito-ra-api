@@ -13,52 +13,56 @@ use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
-	protected $cart;
+    protected $cart;
 
-	public function __construct()
-	{
-		$this->middleware(['auth:api']);
-		$this->middleware(['cart.sync', 'cart.isnotempty'])->only('store');
-	}
+    public function __construct()
+    {
+        $this->middleware(['auth:api']);
+        $this->middleware([
+            'cart.sync',
+            'cart.isnotempty',
+        ])->only('store');
+    }
 
-	public function index(Request $request)
-	{
-		$orders = $request->user()->orders()
-			->with([
-				'products',
-				'products.stock',
-				'products.type',
-				'products.product',
-				'products.product.variations',
-				'products.product.variations.stock',
-				'address',
-				'shippingMethod'
-			])
-			->latest()
-			->paginate(10);
+    public function index(Request $request)
+    {
+        $orders = $request->user()->orders()
+            ->with([
+                'products',
+                'products.stock',
+                'products.type',
+                'products.product',
+                'products.product.variations',
+                'products.product.variations.stock',
+                'address',
+                'shippingMethod',
+            ])
+            ->latest()
+            ->paginate(10);
 
-		return OrderResource::collection($orders);
-	}
+        return OrderResource::collection($orders);
+    }
 
     public function store(OrderStoreRequest $request, Cart $cart)
     {
-    	$order = $this->createOrder($request, $cart);
+        $order = $this->createOrder($request, $cart);
 
-    	$order->products()->sync($cart->products()->forSyncing());
+        $order->products()->sync($cart->products()->forSyncing());
 
-//    	$order->load(['products', 'address','shippingMethod']);
+        event(new OrderCreated($order, $request->user()));
 
-    	event(new OrderCreated($order));
-
-    	return new OrderResource($order);
+        return new OrderResource($order);
     }
 
     public function createOrder(Request $request, Cart $cart)
     {
-	    return $request->user()->orders()->create(
-		    array_merge($request->only(['address_id', 'shipping_method_id']), [
-		    	'subtotal' => $cart->subtotal()->amount()
-		    ])
-	    );
+        return $request->user()->orders()->create(
+            array_merge($request->only([
+                'address_id',
+                'shipping_method_id',
+            ]), [
+                'subtotal' => $cart->subtotal()->amount(),
+            ])
+        );
     }
 }
