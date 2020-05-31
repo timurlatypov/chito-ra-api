@@ -58,10 +58,7 @@ class ProductController extends Controller
 			'product_variation_type_id' => 1
 		]);
 
-
 		$product->images()->attach($this->image->default());
-
-		ResponseCache::clear();
 
 		return response()->json($product, 200);
 	}

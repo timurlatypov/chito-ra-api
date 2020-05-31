@@ -8,6 +8,14 @@ Route::group(['prefix' => 'notifications', 'namespace' => 'Mail'], function() {
 	Route::post('review', 'MailController@getReview');
 });
 
+Route::group([
+    'prefix'    => 'oauth',
+    'namespace' => 'Auth',
+], function () {
+    Route::get('user', 'OAuthController@user')->middleware('auth:api');
+    Route::get('refresh', 'OAuthController@refreshToken');
+});
+
 
 
 Route::resource('categories', 'Categories\CategoryController');

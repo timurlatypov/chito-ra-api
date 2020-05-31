@@ -16,4 +16,9 @@ trait HasPrice
 	{
 		return $this->price->formatted();
 	}
+
+    public function getFormattedSubtotalAttribute()
+    {
+        return $this->subtotal->formatted();
+    }
 }

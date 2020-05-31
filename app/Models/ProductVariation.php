@@ -5,13 +5,16 @@ namespace App\Models;
 use App\Cart\Money;
 use App\Models\Collections\ProductVariationCollection;
 use App\Models\ProductVariationType;
+use App\Traits\ClearsResponseCache;
 use App\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductVariation extends Model
 {
-    use HasPrice;
+    use HasPrice,
+        ClearsResponseCache,
+        SoftDeletes;
 
     protected $fillable = [
         'product_id',

@@ -23,6 +23,10 @@ class Product extends Model
 		'top',
 	];
 
+    protected $with = [
+        'images',
+    ];
+
     public function getRouteKeyName()
     {
     	return 'slug';

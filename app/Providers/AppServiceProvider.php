@@ -3,11 +3,19 @@
 namespace App\Providers;
 
 use App\Cart\Cart;
+use App\Models\ProductVariation;
+use App\Observers\ProductVariationObserver;
+use App\Services\Social\SocialUserResolver;
+use Coderello\SocialGrant\Resolvers\SocialUserResolverInterface;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public $bindings = [
+        SocialUserResolverInterface::class => SocialUserResolver::class,
+    ];
+
     /**
      * Register any application services.
      *

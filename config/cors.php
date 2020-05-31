@@ -11,9 +11,14 @@ return [
     | to accept any value.
     |
     */
-   
+
+    'paths' => ['*'],
     'supportsCredentials' => false,
-    'allowedOrigins' => ['*'],
+    'allowedOrigins' => [
+        'https://skillboxfront.ngrok.io',
+        'http://localhost:8000',
+        'http://localhost:3000',
+        ],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],

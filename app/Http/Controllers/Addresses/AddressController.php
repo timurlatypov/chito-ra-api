@@ -27,6 +27,7 @@ class AddressController extends Controller
     	$address = Address::make($request->only([
     		'name',
 		    'address',
+		    'phone',
 		    'comment',
 		    'default'
 	    ]));
