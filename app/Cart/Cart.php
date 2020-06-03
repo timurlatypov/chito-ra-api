@@ -3,6 +3,7 @@
 namespace App\Cart;
 
 use App\Models\ShippingMethod;
+use DateTime;
 
 class Cart
 {
@@ -86,6 +87,18 @@ class Cart
     }
 
     /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function isWorkingTime()
+    {
+        $start = new DateTime(config('order.start_time'));
+        $end   = new DateTime(config('order.end_time'));
+
+        return now() >= $start && now() <= $end;
+    }
+
+    /**
      * @return Money
      */
     public function subtotal()
@@ -107,6 +120,14 @@ class Cart
         }
 
         return $this->subtotal();
+    }
+
+    /**
+     * @return Money
+     */
+    public function minAmount()
+    {
+        return new Money(config('order.min_amount'));
     }
 
     /**

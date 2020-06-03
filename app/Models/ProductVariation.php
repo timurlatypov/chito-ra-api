@@ -20,6 +20,7 @@ class ProductVariation extends Model
         'product_id',
         'name',
         'price',
+        'min_order',
         'product_variation_type_id',
     ];
 
@@ -39,6 +40,11 @@ class ProductVariation extends Model
     public function minStock($count)
     {
         return min($this->stockCount(), $count);
+    }
+
+    public function minOrder()
+    {
+        return $this->min_order;
     }
 
     public function priceVaries()

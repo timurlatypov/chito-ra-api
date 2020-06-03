@@ -15,87 +15,89 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 
 class ProductController extends Controller
 {
-	private $image;
+    private $image;
 
-	public function __construct (Image $image)
-	{
-		$this->image = $image;
-	}
+    public function __construct(Image $image)
+    {
+        $this->image = $image;
+    }
 
-	public function index ()
-	{
-		$products = Product::with(['variations.stock'])->withScopes($this->scopes())->paginate(200);
+    public function index()
+    {
+        $products = Product::with(['variations.stock'])->withScopes($this->scopes())->paginate(200);
 
-		return ProductResource::collection($products);
-	}
+        return ProductResource::collection($products);
+    }
 
 
-	public function edit (Product $product)
-	{
-		$product->load(['variations.type', 'variations.stock', 'variations.product']);
+    public function edit(Product $product)
+    {
+        $product->load(['variations.type', 'variations.stock', 'variations.product']);
 
-		return new ProductResource(
-			$product
-		);
-	}
+        return new ProductResource(
+            $product
+        );
+    }
 
-	public function store (ProductStoreRequest $request)
-	{
-		$product = Product::create([
-			'name' => $request->name,
-			'slug' => $request->slug,
-			'description' => $request->description,
-			'deliverable' => $request->deliverable,
-			'live' => $request->live,
-			'spicy' => $request->spicy,
-			'top' => $request->top
-		]);
+    public function store(ProductStoreRequest $request)
+    {
+        $product = Product::create([
+            'name'        => $request->name,
+            'slug'        => $request->slug,
+            'description' => $request->description,
+            'deliverable' => $request->deliverable,
+            'live'        => $request->live,
+            'spicy'       => $request->spicy,
+            'top'         => $request->top,
+        ]);
 
-		$variation = ProductVariation::create([
-			'product_id' => $product->id,
-			'name' => $request->volume,
-			'price' => $request->price,
-			'product_variation_type_id' => 1
-		]);
+        $variation = ProductVariation::create([
+            'product_id'                => $product->id,
+            'name'                      => $request->volume,
+            'price'                     => $request->price,
+            'product_variation_type_id' => 1,
+        ]);
 
-		$product->images()->attach($this->image->default());
+        $product->images()->attach($this->image->default());
 
-		return response()->json($product, 200);
-	}
+        return response()->json($product, 200);
+    }
 
-	public function update (ProductPatchRequest $request)
-	{
-		$product = Product::find($request->id);
+    public function update(ProductPatchRequest $request)
+    {
+        $product = Product::find($request->id);
 
-		$product->update([
-			'name' => $request->name,
-			'slug' => $request->slug,
-			'description' => $request->description,
-		]);
-		return response()->json($product, 200);
-	}
+        $product->update([
+            'name'        => $request->name,
+            'slug'        => $request->slug,
+            'description' => $request->description,
+        ]);
 
-	public function productCategories (Product $product, Request $request)
-	{
-		$product->categories()->sync($request->categories);
+        return response()->json($product, 200);
+    }
 
-		return new ProductResource(
-			$product
-		);
-	}
+    public function productCategories(Product $product, Request $request)
+    {
+        $product->categories()->sync($request->categories);
 
-	public function toggleField (Product $product, $field, Request $request)
-	{
-		$product->update([
-			$field => $request->toggle
-		]);
-		return $product;
-	}
+        return new ProductResource(
+            $product
+        );
+    }
 
-	protected function scopes ()
-	{
-		return [
-			'category' => new CategoryScope()
-		];
-	}
+    public function toggleField(Product $product, $field, Request $request)
+    {
+        $product->update([
+            $field => $request->toggle,
+        ]);
+
+        return $product;
+    }
+
+    protected function scopes()
+    {
+        return [
+            'category' => new CategoryScope(),
+        ];
+    }
 }

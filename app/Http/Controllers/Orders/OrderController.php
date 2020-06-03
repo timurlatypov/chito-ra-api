@@ -6,10 +6,9 @@ use App\Cart\Cart;
 use App\Events\Order\OrderCreated;
 use App\Http\Requests\Orders\OrderStoreRequest;
 use App\Http\Resources\OrderResource;
-use App\Models\Order;
-use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
@@ -45,13 +44,22 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request, Cart $cart)
     {
-        $order = $this->createOrder($request, $cart);
+        if ($cart->isWorkingTime()) {
 
-        $order->products()->sync($cart->products()->forSyncing());
+            $order = $this->createOrder($request, $cart);
 
-        event(new OrderCreated($order, $request->user()));
+            $order->products()->sync($cart->products()->forSyncing());
 
-        return new OrderResource($order);
+            event(new OrderCreated($order, $request->user()));
+
+            return new OrderResource($order);
+        }
+
+        return response()->json([
+            'error' => 'Увы, мы закрыты в это время и не можем принять Ваш заказ!',
+        ], Response::HTTP_BAD_REQUEST);
+
+
     }
 
     public function createOrder(Request $request, Cart $cart)
