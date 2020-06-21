@@ -29,6 +29,7 @@
                 width: 100% !important;
             }
         }
+
         /* Base */
 
         body, body *:not(html):not(style):not(br):not(tr):not(code) {
@@ -336,8 +337,10 @@
 
                                     <p>Здравствуйте, {{ $order->user->name }},</p>
                                     <br>
-                                    Ваш заказ: <b>№ {{ $order->id }}</b> от {{ $order->created_at->format('d.m.Y') }}<br>
-                                    Мы обязательно свяжемся с Вами в ближайшее время по номеру:<br><b>{{ $order->address->phone }}</b>.
+                                    Ваш заказ: <b>№ {{ $order->id }}</b> от {{ $order->created_at->format('d.m.Y') }}
+                                    <br>
+                                    Мы обязательно свяжемся с Вами в ближайшее время по
+                                    номеру:<br><b>{{ $order->address->phone }}</b>.
                                     <br>
                                     <br>
                                     <b>Адрес доставки</b><br>
@@ -348,26 +351,30 @@
                                     {{ $order->address->comment }}
                                     <br><br>
 
-                                    Если вдруг Вы заметили, что контактные данные заполнены неверно - просьба перезвонить нам для внесения корректных данных в заказ. Иначе мы не сможем выйти на связь с Вами.
-                                        <br><br>
+                                    Если вдруг Вы заметили, что контактные данные заполнены неверно - просьба
+                                    перезвонить нам для внесения корректных данных в заказ. Иначе мы не сможем выйти на
+                                    связь с Вами.
+                                    <br><br>
                                     Вы заказзали:
 
                                     <table class="table" width="100%" cellpadding="4px" cellspacing="2px">
                                         <thead>
-                                            <tr style="background-color: #dddddd">
-                                                <th></th>
-                                                <th>Название</th>
-                                                <th>Кол-во</th>
-                                            </tr>
+                                        <tr style="background-color: #dddddd">
+                                            <th></th>
+                                            <th>Название</th>
+                                            <th>Кол-во</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($order->products as $item)
                                             <tr style="background-color: #f9f9f9">
                                                 <td class="width:130px">
-                                                    <img width="120px" src="https://api.chito-ra.ru/storage/{{ $item->product->images->first()->name }}">
+                                                    <img width="120px"
+                                                         src="https://api.chito-ra.ru/storage/{{ $item->product->images->first()->name }}">
                                                 </td>
                                                 <td>
-                                                    <b>{{ $item->product->name }}</b>
+                                                    <b>{{ $item->product->name }}</b><br>
+                                                    <p>@if($item->name){{ $item->name }}@endif {{ $item->vol }} {{ $item->measure->type }}</p>
                                                 </td>
                                                 <td class="text-center">{{ $item->pivot->quantity }} шт.</td>
                                             </tr>
@@ -375,10 +382,7 @@
                                         </tbody>
                                     </table>
                                     <br>
-                                    <h4 class="uppercase text-gray-700 text-md font-bold mb-2">Общая стоимость</h4>
-                                    <b>{!! $order->formattedSubtotal !!}</b>
-                                    <br><br>
-                                    <small>Бесплатная доставка по Москве при сумме заказа от 1000 руб. Доставка за МКАД согласовывается с менеджером и рассчитывается индивидуально.</small>
+                                    <h4 class="uppercase text-gray-700 text-md font-bold mb-2">Общая стоимость: {!! $order->formattedSubtotal !!}</h4>
                                     <br><br>
                                     С уважением,<br>
                                     Чито-ра
@@ -388,22 +392,22 @@
                     </td>
                 </tr>
 
-                    <tr>
-                        <td>
-                            <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td class="content-cell" align="center">
-                                        <div>
-                                            <p>Чито-ра - Ресторан грузинской кухни в Москве</p>
-                                            <a href="tel:74994447474">+7 (499) 444-74-74</a>
-                                            <br><br>
-                                            <p>&copy; {{ date('Y') }} <a href="www.chito-ra.ru">www.chito-ra.ru</a></p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="content-cell" align="center">
+                                    <div>
+                                        <p>Чито-ра - Ресторан грузинской кухни в Москве</p>
+                                        <a href="tel:74994447474">+7 (499) 444-74-74</a>
+                                        <br><br>
+                                        <p>&copy; {{ date('Y') }} <a href="www.chito-ra.ru">www.chito-ra.ru</a></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>

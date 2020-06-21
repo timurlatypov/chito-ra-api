@@ -360,6 +360,7 @@
                                     </td>
                                     <td>
                                         <b>{{ $item->product->name }}</b>
+                                        <p>@if($item->name){{ $item->name }}@endif {{ $item->vol }} {{ $item->measure->type }}</p>
                                     </td>
                                     <td class="text-center">{{ $item->pivot->quantity }} шт.</td>
                                 </tr>
@@ -367,8 +368,7 @@
                             </tbody>
                         </table>
                         <br>
-                        <h4 class="uppercase text-gray-700 text-md font-bold mb-2">Общая стоимость</h4>
-                        <b>{!! $order->formattedSubtotal !!}</b>
+                        <h4 class="uppercase text-gray-700 text-md font-bold mb-2">Общая стоимость: {!! $order->formattedSubtotal !!}</h4>
                     </td>
                 </tr>
             </table>

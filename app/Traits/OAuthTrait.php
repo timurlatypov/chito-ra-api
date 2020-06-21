@@ -49,7 +49,7 @@ trait OAuthTrait
      */
     protected function makeFakeEmail()
     {
-        return 'user-' . md5(now()) . '@skillbox.ru';
+        return 'user-' . md5(now()) . '@chito-ra.ru';
     }
 
     /**
